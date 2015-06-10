@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609054040) do
+ActiveRecord::Schema.define(version: 20150609055725) do
+
+  create_table "docx_templates", force: :cascade do |t|
+    t.integer  "user_id",         limit: 4
+    t.string   "name",            limit: 255
+    t.string   "raw_template",    limit: 255
+    t.string   "template_fields", limit: 255
+    t.string   "sample_template", limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

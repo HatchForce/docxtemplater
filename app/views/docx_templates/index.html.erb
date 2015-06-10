@@ -1,0 +1,37 @@
+
+<h1>List of templates</h1>
+
+<hr>
+
+<table>
+  <tr>
+    <th>
+      #ID
+    </th>
+    <th>
+      Template
+    </th>
+    <th>
+      Sample Doc
+    </th>
+    <th>
+      Actions
+    </th>
+  </tr>
+  <% @docx_templates.each do |docx_template| %>
+      <tr>
+        <td>
+          <%= docx_template.id %>
+        </td>
+        <td>
+          <%= docx_template.name %>
+        </td>
+        <td>
+          <%= docx_template.sample_template_identifier %>
+        </td>
+        <td>
+          <%= link_to "Generate", generate_docx_template_path(docx_template) %>
+        </td>
+      </tr>
+  <% end %>
+</table>

@@ -1,11 +1,25 @@
 Rails.application.routes.draw do
 
+  match '/admin' => 'admin#index', as: 'admin_index', via: [:get]
+  namespace :admin do
+    resources :docx_templates do
+    end
+
+  end
+
+  resources :docx_templates do
+    member do
+      get :generate
+      get :download
+      post :download
+    end
+  end
+
   resource :home, controller: :home do
     collection do
       get :index
     end
   end
-
 
   devise_for :users
   root to: "home#index"

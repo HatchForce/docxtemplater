@@ -1,0 +1,39 @@
+
+<%= link_to "New Template", new_admin_docx_template_path%>
+<hr>
+<table>
+  <tr>
+    <th>
+      #ID
+    </th>
+    <th>
+      Name
+    </th>
+    <th>
+      Raw Template
+    </th>
+    <th>
+      Template Fields
+    </th>
+    <th>Actions</th>
+  </tr>
+  <% @docx_templates.each do |docx_template| %>
+  <tr>
+    <td>
+      <%= docx_template.id %>
+    </td>
+    <td>
+      <%= docx_template.name %>
+    </td>
+    <td>
+      <%= docx_template.raw_template_identifier %>
+    </td>
+    <td>
+      <%= docx_template.template_fields_identifier %>
+    </td>
+    <td>
+      <%= link_to "Edit", edit_admin_docx_template_path(docx_template) %>
+    </td>
+  </tr>
+  <% end %>
+</table>

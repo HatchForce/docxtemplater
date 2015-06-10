@@ -1,0 +1,14 @@
+<%= simple_form_for(@docx_template, url: @docx_template.new_record? ? admin_docx_templates_path : admin_docx_template_path(@docx_template)) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :name %>
+      <%= f.input :raw_template %>
+      <%= f.input :template_fields %>
+      <%#= f.input :sample_template %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>
