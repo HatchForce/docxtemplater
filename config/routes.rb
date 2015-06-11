@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   end
 
   resources :docx_templates do
+    collection do
+    end
     member do
       get :generate
       get :download

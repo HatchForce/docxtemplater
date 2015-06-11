@@ -9,6 +9,11 @@ class DocxTemplatesController < ApplicationController
 
     yomu = Yomu.new @docx_template.raw_template.path
     @text = yomu.text
+
+    _x = @text.scan(/\$(.*?)$/)
+    _x = _x.join(' ').delete('$')
+    _x = _x.delete(',')
+    @fields = _x.split(' ')
   end
 
   def download
@@ -19,8 +24,8 @@ class DocxTemplatesController < ApplicationController
         doc = DocxReplace::Doc.new(@docx_template.raw_template.path, "#{Rails.root}/tmp")
 
         # Replace some variables. $var$ convention is used here, but not required.
-        data = {title: "Fabulous Document", first_name: "Prasanna", last_name: "Kumar", location: "Hyderabad"}
-        data.each do |k, v|
+        #data = {title: "Fabulous Document", first_name: "Prasanna", last_name: "Kumar", location: "Hyderabad"}
+        params[:faker].each do |k, v|
           doc.replace("$#{k}$", v)
         end
 
@@ -28,8 +33,16 @@ class DocxTemplatesController < ApplicationController
         tmp_file = Tempfile.new('word_template', "#{Rails.root}/tmp/docx")
         doc.commit(tmp_file.path)
 
+        if params[:doc_name] == ""
+          download_file_name = "#{@docx_template.raw_template_identifier}_#{Time.now.to_i}.docx"
+          logger.debug "-----------"
+          logger.debug download_file_name
+        else
+          download_file_name = "#{params[:doc_name]}.docx"
+        end
+
         # Respond to the request by sending the temp file
-        send_file tmp_file.path, filename: "00#{@docx_template.raw_template_identifier}", disposition: 'attachment'
+        send_file tmp_file.path, filename: download_file_name, disposition: 'attachment'
       end
     end
   end

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project701</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css") %>
+  <%= yield :extra_styles %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="skin-blue fixed home" data-spy="scroll" data-target="#scrollspy">
+    <div class="wrapper">
+      <header class="main-header">
+
+        <a class="logo" href="/">
+          <span class="logo-mini"><b>Dx</b>T</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Docx</b>Template</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav role="navigation" class="navbar navbar-static-top">
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <% if current_user %>
+                  <li><%= link_to "Index", docx_templates_path, confirm: "are you sure?" %></li>
+                  <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, data: {confirm: "are you sure?"} %></li>
+              <% else %>
+                  <li><%= link_to "Sign in", new_user_session_path %></li>
+                  <li><%= link_to "Sign up", new_user_registration_path %></li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <%= yield %>
+      </div>
+    </div>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= yield :extra_scripts %>
+</body>
+</html>

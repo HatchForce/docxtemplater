@@ -2,13 +2,73 @@
 <html>
 <head>
   <title>Project701</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css") %>
+  <%= yield :extra_styles %>
   <%= csrf_meta_tags %>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
-<body>
+<body class="skin-blue sidebar-mini">
+    <div class="wrapper">
+      <header class="main-header">
 
-<%= yield %>
+        <a class="logo" href="/">
+          <span class="logo-mini"><b>Dx</b>T</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Docx</b>Template</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav role="navigation" class="navbar navbar-static-top">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <% if current_user %>
+                  <li><%= link_to "Index", docx_templates_path, confirm: "are you sure?" %></li>
+                  <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, data: {confirm: "are you sure?"} %></li>
+              <% else %>
+                  <li><%= link_to "Sign in", new_user_session_path %></li>
+                  <li><%= link_to "Sign up", new_user_registration_path %></li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <ul class="sidebar-menu">
+            <% if current_user.is_admin? %>
+                <li class="header"><i class="fa fa-dashboard"></i> ADMIN</li>
+                <li class="treeview">
+                  <%= link_to admin_docx_templates_path do %>
+                      <i class="fa fa-table"></i><span> Admin Templates</span>
+                  <% end %>
+                </li>
+            <% end %>
+            <li class="header"><i class="fa fa-dashboard"></i> DASHBOARD</li>
+            <li class="treeview">
+              <%= link_to docx_templates_path do %>
+                <i class="fa fa-table"></i><span>Templates</span>
+              <% end %>
+            </li>
+          </ul>
+        </section>
+      </aside>
+      <div class="content-wrapper">
+        <%= yield %>
+      </div>
+    </div>
 
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= yield :extra_scripts %>
 </body>
 </html>

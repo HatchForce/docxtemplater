@@ -1,39 +1,57 @@
 
-<%= link_to "New Template", new_admin_docx_template_path%>
-<hr>
-<table>
-  <tr>
-    <th>
-      #ID
-    </th>
-    <th>
-      Name
-    </th>
-    <th>
-      Raw Template
-    </th>
-    <th>
-      Template Fields
-    </th>
-    <th>Actions</th>
-  </tr>
-  <% @docx_templates.each do |docx_template| %>
-  <tr>
-    <td>
-      <%= docx_template.id %>
-    </td>
-    <td>
-      <%= docx_template.name %>
-    </td>
-    <td>
-      <%= docx_template.raw_template_identifier %>
-    </td>
-    <td>
-      <%= docx_template.template_fields_identifier %>
-    </td>
-    <td>
-      <%= link_to "Edit", edit_admin_docx_template_path(docx_template) %>
-    </td>
-  </tr>
-  <% end %>
-</table>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    List of templates
+  </h1>
+</section>
+
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Templates</h3>
+          <div class="box-tools pull-right">
+            <%= link_to "Add Template", new_admin_docx_template_path, class: "label label-success" %>
+            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+          </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tr>
+              <th>
+                #ID
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Raw Template
+              </th>
+              <th>Actions</th>
+            </tr>
+            <% @docx_templates.each do |docx_template| %>
+                <tr>
+                  <td>
+                    <%= docx_template.id %>
+                  </td>
+                  <td>
+                    <%= docx_template.name %>
+                  </td>
+                  <td>
+                    <%= docx_template.raw_template_identifier %>                           </td>
+
+                  <td>
+                    <%= link_to "Edit", edit_admin_docx_template_path(docx_template) %>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
