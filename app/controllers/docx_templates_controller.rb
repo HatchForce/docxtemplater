@@ -46,6 +46,14 @@ class DocxTemplatesController < ApplicationController
       end
     end
   end
+
+  def merge_files
+
+  end
+
+  def download_merge_files
+    raise params.inspect
+  end
 end
 
 =begin

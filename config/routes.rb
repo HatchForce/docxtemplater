@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :docx_templates do
     collection do
+      get :merge_files
+      post :download_merge_files
     end
     member do
       get :generate

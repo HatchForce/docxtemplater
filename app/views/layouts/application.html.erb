@@ -32,8 +32,8 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <% if current_user %>
-                  <li><%= link_to "Index", docx_templates_path, confirm: "are you sure?" %></li>
-                  <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, data: {confirm: "are you sure?"} %></li>
+                  <li><%= link_to "Index", docx_templates_path %></li>
+                  <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
               <% else %>
                   <li><%= link_to "Sign in", new_user_session_path %></li>
                   <li><%= link_to "Sign up", new_user_registration_path %></li>
@@ -59,6 +59,9 @@
               <%= link_to docx_templates_path do %>
                 <i class="fa fa-table"></i><span>Templates</span>
               <% end %>
+              <%= link_to  merge_files_docx_templates_path do %>
+                <i class="fa fa-archive"></i><span>Merge</span>
+              <% end %>
             </li>
           </ul>
         </section>
@@ -66,6 +69,12 @@
       <div class="content-wrapper">
         <%= yield %>
       </div>
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.0
+        </div>
+        <strong>Copyright &copy; 2014-2015</strong> All rights reserved.
+      </footer>
     </div>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
