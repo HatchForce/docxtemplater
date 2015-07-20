@@ -13,7 +13,7 @@ class DocxTemplatesController < ApplicationController
     _x = @text.scan(/\$(.*?)$/)
     _x = _x.join(' ').delete('$')
     _x = _x.delete(',')
-    @fields = _x.split(' ')
+    @fields = _x.split(' ').uniq
   end
 
   def download
@@ -26,7 +26,7 @@ class DocxTemplatesController < ApplicationController
         # Replace some variables. $var$ convention is used here, but not required.
         #data = {title: "Fabulous Document", first_name: "Prasanna", last_name: "Kumar", location: "Hyderabad"}
         params[:faker].each do |k, v|
-          doc.replace("$#{k}$", v)
+          doc.replace("$#{k}$", v, multiple_occurrences = true)
         end
 
         # Write the document back to a temporary file
